@@ -20,7 +20,7 @@ fun Navigation(
     )
     {
         composable(Screen.HomeScreen.route) {
-            Navigation()
+            HomeView()
         }
     }
 }
