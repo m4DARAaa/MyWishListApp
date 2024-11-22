@@ -20,7 +20,10 @@ fun Navigation(
     )
     {
         composable(Screen.HomeScreen.route) {
-            Navigation()
+            HomeView(navController,viewModel)
+        }
+        composable(Screen.AddScreen.route) {
+            AddEdiDetailView(id = 0L, viewModel =viewModel , navController = navController)
         }
     }
 }
