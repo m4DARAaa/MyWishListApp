@@ -9,6 +9,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -32,24 +33,34 @@ fun AddEdiDetailView(
     navController: NavController
 ) {
 
-val snakeMessage= remember{
-    mutableStateOf("")
-}
-    val scope= rememberCoroutineScope()
+    val snakeMessage = remember {
+        mutableStateOf("")
+    }
+    val scope = rememberCoroutineScope()
 
-    val scaffoldState= rememberScaffoldState()
+    val scaffoldState = rememberScaffoldState()
+
+    if (id!=0L){
+        val wish=viewModel.getAWishById(id).collectAsState(initial = Wish(0L,"",""))
+        viewModel.wishTitleState=wish.value.title
+        viewModel.wishDescriptionState=wish.value.description
+    }else{
+        viewModel.wishTitleState=""
+        viewModel.wishDescriptionState=""
+    }
 
     Scaffold(
-        scaffoldStatd=scaffoldState,
-        topBar = {AppBarView(title =
-        if (id != 0L) stringResource(id = R.string.updata_wish)
-        else stringResource(id = R.string.add_wish)
-        ){navController.navigateUp()}
-},
+        scaffoldState = scaffoldState,
+        topBar = {
+            AppBarView(
+                title =
+                if (id != 0L) stringResource(id = R.string.updata_wish)
+                else stringResource(id = R.string.add_wish)
+            ) { navController.navigateUp() }
+        },
 
 
-
-    ) {
+        ) {
         Column(
             modifier = Modifier
                 .padding(it)
@@ -58,48 +69,62 @@ val snakeMessage= remember{
             verticalArrangement = Arrangement.Center
         ) {
             Spacer(modifier = Modifier.height(10.dp))
+
             WishTextField(label = "Title",
-                value =viewModel.wishTitleState,
-                 onValueChanged ={
-                     viewModel.onWishTitleChanged(it) })
+                value = viewModel.wishTitleState,
+                onValueChanged = {
+                    viewModel.onWishTitleChanged(it)
+                })
 
             Spacer(modifier = Modifier.height(10.dp))
+
             WishTextField(label = "Description",
-                value =viewModel.wishDescriptionState,
-                onValueChanged ={
-                    viewModel.onWishDescriptionChanged(it) })
+                value = viewModel.wishDescriptionState,
+                onValueChanged = {
+                    viewModel.onWishDescriptionChanged(it)
+                })
 
             Spacer(modifier = Modifier.height(10.dp))
+
             Button(onClick = {
-                if (viewModel.wishTitleState.isEmpty()&&
-                    viewModel.wishDescriptionState.isEmpty()){
-                    if (id!=0L){
-
-
-                    }else{
-viewModel.addWish(Wish(
-    title = viewModel.wishTitleState.trim(),
-    description = viewModel.wishDescriptionState.trim(),
+                if (viewModel.wishTitleState.isNotEmpty() &&
+                    viewModel.wishDescriptionState.isNotEmpty()
+                ) {
+                    if (id != 0L) {
+viewModel.updateWish(
+    Wish(
+        id=id,
+        title = viewModel.wishTitleState.trim(),
+        description = viewModel.wishDescriptionState.trim()
+    )
 )
-)
-snakeMessage.value="wish has been created"
+
+                    } else {
+                        viewModel.addWish(
+                            Wish(
+                                title = viewModel.wishTitleState.trim(),
+                                description = viewModel.wishDescriptionState.trim(),
+                            )
+                        )
+                        snakeMessage.value = "wish has been created"
 
                     }
 
 
-                }else{
-                    snakeMessage.value="Enter fields to create a wish "
+                } else {
+                    snakeMessage.value = "Enter fields to create a wish "
 
                 }
 
-                scope.launch { scaffoldState.snackbarHostState.showSnackbar(snakeMessage.value)
-                    navController.navigateUp() }
+                scope.launch {
+                    scaffoldState.snackbarHostState.showSnackbar(snakeMessage.value)
+                    navController.navigateUp()
+                }
 
             }) {
                 Text(
-                    text =if (id!= 0L) stringResource(id = R.string.updata_wish)
-                else stringResource(id = R.string.add_wish)
-                ,style= TextStyle(fontSize=18.sp)
+                    text = if (id != 0L) stringResource(id = R.string.updata_wish)
+                    else stringResource(id = R.string.add_wish), style = TextStyle(fontSize = 18.sp)
                 )
 
             }
