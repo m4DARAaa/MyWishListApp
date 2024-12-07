@@ -66,6 +66,22 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.7.5")
 
 
+//    val nav_version = "2.7.5"
+//    val compose_version = "1.6.0-alpha08"
+//    val room = "2.6.0"
+//
+//    implementation("androidx.room:room-runtime:$room")
+//    implementation("androidx.room:room-ktx:$room")
+//    kapt("androidx.room:room-compiler:$room")
+//
+//    implementation("androidx.navigation:navigation-compose:$nav_version")
+//    implementation("androidx.compose.ui:ui:$compose_version")
+//    implementation("androidx.compose.material:material:$compose_version")
+//    implementation("androidx.compos.ui:ui-tooling-preview:$compose_version")
+
+
+
+
 
 
 
