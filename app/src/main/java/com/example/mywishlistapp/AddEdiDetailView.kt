@@ -1,6 +1,12 @@
 package com.example.mywishlistapp
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
@@ -54,7 +60,7 @@ fun AddEdiDetailView(
         topBar = {
             AppBarView(
                 title =
-                if (id != 0L) stringResource(id = R.string.updata_wish)
+                if (id != 0L) stringResource(id = R.string.update_wish)
                 else stringResource(id = R.string.add_wish)
             ) { navController.navigateUp() }
         },
@@ -123,7 +129,7 @@ viewModel.updateWish(
 
             }) {
                 Text(
-                    text = if (id != 0L) stringResource(id = R.string.updata_wish)
+                    text = if (id != 0L) stringResource(id = R.string.update_wish)
                     else stringResource(id = R.string.add_wish), style = TextStyle(fontSize = 18.sp)
                 )
 
