@@ -2,21 +2,20 @@ package com.example.mywishlistapp
 
 import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DismissDirection
 import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,7 +44,8 @@ fun HomeView(navController: NavController,
     val context = LocalContext.current
     Scaffold(
         topBar = {
-            AppBarView(title = "WishList") {
+            AppBarView(title = "WishList"
+            ) {
                 Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
             }
         },
@@ -120,11 +120,11 @@ fun HomeView(navController: NavController,
 fun WishItem(wish: Wish, onClick: () -> Unit) {
     Card(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(top = 8.dp, start = 8.dp, end = 8.dp)
             .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-        border = BorderStroke(1.dp, Color.White)
+        elevation = 10.dp,
+        backgroundColor = Color.White
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = wish.title, fontWeight = FontWeight.ExtraBold)

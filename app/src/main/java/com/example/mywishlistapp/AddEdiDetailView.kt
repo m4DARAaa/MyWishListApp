@@ -3,7 +3,7 @@ package com.example.mywishlistapp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -26,6 +26,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -148,7 +149,7 @@ fun WishTextField(
         value = value,
         onValueChange = onValueChanged,
         label = { Text(text = label, color = Color.Black) },
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Color.Black,
@@ -159,4 +160,9 @@ fun WishTextField(
             unfocusedLabelColor = colorResource(id = R.color.black),
         )
     )
+}
+@Preview
+@Composable
+fun WishTextFieldPrev(){
+    WishTextField(label = "text", value = "text", onValueChanged = {})
 }
